@@ -1,0 +1,29 @@
+name: "Watch file"
+on: push
+
+# Alternatively, only watch in specified branches
+# on:
+#   push:
+#     branches:
+#       - master
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      # https://github.com/actions/checkout
+      - uses: actions/checkout@v2
+      # https://github.com/actions/setup-node
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - run: npm ci
+      - id: file_check
+        run: node index.js
+        env:
+          # secrets.GITHUB_TOKEN is set implicitly
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILE_PATH_TO_WATCH: test.txt
+      # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepsif
+      - if: steps.file_check.outputs.changed
+        run: echo "Aye, file changed."
