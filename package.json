@@ -1,0 +1,9 @@
+{
+  "name": "watch-single-file-action-example",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Example for a GitHub Action that acts on changes to a single file",
+  "main": "index.js",
+  "author": "Gregor Martynus (https://twitter.com/gr2m)",
+  "license": "MIT"
+}
